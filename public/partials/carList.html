@@ -1,0 +1,21 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3" style="background-color: orange">
+            <button class="btn btn-primary pull-right" type="button" style="width: 100px" ng-click="showCar()">Novo</button>
+        
+            <br/><br/>
+
+            <div class="list-group" ng-show="cars.length > 0">
+                <button type="button" class="list-group-item" ng-click="showCar(car.id)" ng-repeat="car in cars">
+                    {{car.model}}
+                </button>
+            </div>
+
+            <div class="alert alert-info" ng-show="cars.length == 0">
+                <span>Nenhum carro adicionado.</span>
+            </div>
+        </div>
+
+        <ui-view></ui-view>
+    </div>
+</div>

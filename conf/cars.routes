@@ -1,0 +1,7 @@
+GET    /                    controllers.CarsController.cars
+GET    /models              controllers.CarsController.carsModels
+POST   /                    controllers.CarsController.insert
+
+GET    /:id                 controllers.CarsController.carById(id : Long)
+PUT    /:id                 controllers.CarsController.update(id : Long)
+DELETE /:id                 controllers.CarsController.delete(id : Long)

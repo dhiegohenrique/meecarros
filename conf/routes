@@ -1,0 +1,21 @@
+GET     /                           controllers.HomeController.index
+
+->     /cars                        cars.Routes
+
+->     /login                       login.Routes
+
+->     /persons                     persons.Routes
+
+->     /colors                      colors.Routes
+
+GET   /swagger.json                 controllers.ApiHelpController.getResources
+GET   /docs/                        controllers.Assets.at(path="/public/swagger-ui",file="index.html")
+GET   /docs/*file                   controllers.Assets.at(path="/public/swagger-ui",file)
+
+GET   /vendor/*file                   controllers.Assets.at(path="/public/vendor",file)
+
+GET   /resources/*file                   controllers.Assets.at(path="/public/resources",file)
+
+GET   /javascripts/*file                   controllers.Assets.at(path="/public/javascripts",file)
+
+GET   /partials/*file                   controllers.Assets.at(path="/public/partials",file)

@@ -1,0 +1,16 @@
+logs
+target
+/.idea
+/.idea_modules
+/.classpath
+/.project
+/.settings
+/RUNNING_PID
+/.vscode
+.tmp
+.DS_Store
+.DS_Store?
+node_modules/
+public/vendor/
+dist/
+script/
