@@ -12,12 +12,9 @@ before_cache:
 - rm -rf $HOME/.ivy2/cache/com.typesafe.play/*
 - rm -rf $HOME/.ivy2/cache/scala_*/sbt_*/com.typesafe.play/*
 - find $HOME/.ivy2/cache -name "ivydata-*.properties" -print0 | xargs -n10 -0 rm
-script:
-- sbt stage deployHeroku
-# deploy:
-#   provider: heroku
-#   api_key:
-#     secure: wESHmrR/RQ/PncdFe3oPjsDpCIDyY3V0FIotQgG8u9CabKo46CMzqScgCToYean5u/+EV93Cvkg0mn+sFsnMGQftMOO0nzZB/4GtMwewfU5lgr28/DwWAnACPLeWZxax88/q4w4HDVMBv6CLg5kx1Doe5KVnCp5EspWVT0+sAipZFOcUqwOEJ1XwaOJxVrepAsK72DfsBK/0FMFvnfKAHsjLV1P73aQPb8TUe7cqXiBuhDl0AMhctC6IsK9IxsS3m0I6PeLU+OMc5J0kshIJI3YOUEqM1hfz/2hN5HYydffOBVfCKsxmVOn1hkRwEpCCJ1yA6Mhn+nmjHx7DzqCp2/vgW1AS3zEynvYAbhEEVVaYC+/u9GMZpDK74VGNvcQiJotujyWx3eUeJ7M9tRbzKXVHRju8R4AKJtZORpM8bqoRID4vigKL8KI6jZpoZBujWHExczsIbwNKYbc6+EW47sRY//U7VGuZXz4PqeVP/Dapz0hBAWUuTMmS9x73yrcMEvbg1Tno+KxE3BEgWRL2xdlnxOUcX0auCNqClhI1X22POIqLaG/7jIMF2bBN+UxtKSn4Q/5l0W5Ar6/7lsoezZlu+aAR9oVQVwMsblKxw0Mt/BugcK5rWIrJ/g7UhggBa8O/d64+hE6y/2uX7hrlILdcVvZa7twZomMadshMAqo=
-#   app: meecarros
-#   on:
-#     repo: dhiegohenrique/meecarros
+deploy:
+  provider: heroku
+  api_key:
+    secure: cK8Cgc/JWZY8FyhBXwyQKum2ckl2eMIT/xHHlC7IixvgJBX6fARBJNy44x0IXUZYset4JYenobiVVB3ISIv3gTqBN1BEHit0PqWslT38q2bMV31yjiejV4PQDY8ZYI7fgHUYOK74leWPa46sfc2YR5QH5wt9yHHPfatdC5hCyBqRiI7fmmN95i6OEMFgp/AeheX6KTl5xX2GNzDXA9E/x7MYxXFnSc51gnBE4dqHddIC2GUB/MHXh8l4e/woQVkVm6sbLDYS58YSK/LfOgsjxD1pafiydfCmcjdoqu0Lu1kcZnjC8AzjYMFIY/gUkPJcRpjyTR+ZHydGgditHbpf5VRpJxPSG3hZ4I8wHuI9xwFwAunvL2L1xkC2q0hSSWsnkUz/ri3vqdXo/u1YCnb1DoVvdIgYymR9XzD7EuhkwbI1Ns1AvPpwekB7iPXPiVI+ir/9dhCzmFjNQmJJt3ErmBGuDs6OacwwH4xiNE18bs+oqFliRfC13rhvN5T/Rm7gIWQkNhhH6nQzGIwaX+moBHgnc4y+Na6DKz0DHJ13bXTPgQuCRAFgXPidLvjkd6kkCTyI2jW8E/stzLT9oIjc33RIGtK9aHvIV4UmAipUCjm5Zjn4U3UQRhqX+5ib7LPO8WlbRiXIo7dQ9LqIHj/PCHZI0qNZj5Ri4++dKao/9n4=
+  app: meecarros
+  skip_cleanup: true

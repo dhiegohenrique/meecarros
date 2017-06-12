@@ -108,7 +108,6 @@ public class JPACarRepository implements ICarRepository {
         	data.colorId = carData.colorId;
         	data.model = carData.model;
         }
-//        Thread.sleep(10000L);
         return Optional.ofNullable(data);
     }
     
