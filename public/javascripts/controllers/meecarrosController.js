@@ -11,12 +11,12 @@ function meecarrosController($scope, loginService, $state, $q, localStorageServi
         }
 
         if ($scope.isTokenValid) {
-            $('#modal-logoff')
-                .modal('show')
-                .on('click', '#yes', function(e) {
-                    logoff();
-                });
-            return;
+            if ($rootScope.isCarEdit) {
+                showConfirmModal();
+                return;
+            }
+
+            logoff();
         }
 
         $scope.spinner = true;
@@ -38,13 +38,13 @@ function meecarrosController($scope, loginService, $state, $q, localStorageServi
     function logoff() {
         localStorageService.remove("token");
         $window.location = "/";
-        // $state.go("/");
-        // $state.reload();
-        // $location.path("/").replace();
-        // $scope.$apply();
-        // $scope.city = "";
-        // $scope.isTokenValid = false;
-        // angular.element("#token").focus();
-        // $("#token").focus();
+    };
+
+    function showConfirmModal() {
+        $('#modal-confirm')
+            .modal('show')
+            .on('click', '#yes', function(e) {
+                logoff();
+            });
     };
 };

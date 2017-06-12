@@ -29,15 +29,29 @@ function carListController($scope, $state, $stateParams, $rootScope) {
         }
     }
 
-    $scope.showCar = function(id) {
-        if (!$rootScope.isCarEdit) {
-            $state.go("car");
+    $scope.showCar = function(id, $event) {
+        if ($rootScope.isCarEdit) {
+            showConfirmModal();
             return;
         }
 
+        if ($event) {
+            var idElement = $event.target.id;
+            if (idElement && idElement == "delete") {
+                deleteCar();
+                return;
+            }
+        }
+
+        //passar o id por parâmetro
+        $state.go("car");
+    };
+
+    function showConfirmModal() {
         $('#modal-confirm')
             .modal('show')
             .on('click', '#yes', function(e) {
+                //pegar o id do carro clicado
                 $state.go("car");
             });
     };
@@ -50,5 +64,14 @@ function carListController($scope, $state, $stateParams, $rootScope) {
         }
 
         return -1;
+    };
+
+    function deleteCar(id) {
+        $("#modal-logoff")
+            .modal("show")
+            .on('click', '#yes', function(e) {
+                //pegar o id do carro clicado
+                console.log("confirmou");
+            });
     };
 };

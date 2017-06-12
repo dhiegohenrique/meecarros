@@ -5,10 +5,17 @@
         
             <br/><br/>
 
-            <div class="list-group" ng-show="cars.length > 0">
-                <button type="button" class="list-group-item" ng-click="showCar(car.id)" ng-repeat="car in cars">
+            <div class="list-group">
+                <a href="#" class="list-group-item clearfix" ng-repeat="car in cars" ng-click="showCar(car.id, $event)">
                     {{car.model}}
-                </button>
+                    <span class="pull-right">
+                    <button class="btn btn-xs btn-danger" id="delete" title="Excluir">
+                        <span id="delete">
+                            <i class="fa fa-trash" aria-hidden="true" id="delete"></i>
+                        </span>
+                    </button>
+                    </span>
+                </a>
             </div>
 
             <div class="alert alert-info" ng-show="cars.length == 0">
@@ -19,3 +26,5 @@
         <ui-view></ui-view>
     </div>
 </div>
+
+<!--<div ng-include="'partials/modalConfirm.html'"></div>-->
