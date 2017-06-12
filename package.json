@@ -1,0 +1,22 @@
+{
+  "name": "meecarros",
+  "version": "1.0.0",
+  "description": "[![Build Status](https://travis-ci.org/dhiegohenrique/meecarros.svg?branch=master)](https://travis-ci.org/dhiegohenrique/meecarros)",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://dhiegohenrique@github.com/dhiegohenrique/meecarros.git"
+  },
+  "author": "dhiego",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dhiegohenrique/meecarros/issues"
+  },
+  "homepage": "https://github.com/dhiegohenrique/meecarros#readme"
+}
