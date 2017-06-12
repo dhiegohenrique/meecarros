@@ -5,10 +5,9 @@ angular.module("meecarros").controller("carListController", ["$scope", "$state",
 function carListController($scope, $state, $stateParams, $rootScope, carService, personService, $q, colorService, loadingService) {
     var persons;
     var colors;
+    $scope.cars = [];
     var car = $stateParams.car;
     if (car) {
-        console.log("chegou: " + JSON.stringify(car));
-
         var index = getCarIndex(car.id.id);
         if (index < 0) {
             $scope.cars.push(car);
@@ -74,6 +73,8 @@ function carListController($scope, $state, $stateParams, $rootScope, carService,
     };
 
     function deleteCar(id) {
+        console.log("clicou para deletar o carro: " + id);
+
         // loadingService.openModal();
         // carService.deleteCar(id)
         //     .then(function(response) {
@@ -101,14 +102,8 @@ function carListController($scope, $state, $stateParams, $rootScope, carService,
         $q.all([promiseCarsModels, promisePersons, promiseColors])
         .then(function(results) {
             $scope.cars = results[0];
-            console.log("carros carregados: " + $scope.cars);
-
             persons = results[1];
             colors = results[2];
-
-            if ($scope.car) {
-                carMaster = angular.copy($scope.car);
-            }
         })
         .finally(function() {
             loadingService.closeModal();
