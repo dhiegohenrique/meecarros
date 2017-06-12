@@ -1,6 +1,11 @@
 language: scala
 scala:
 - 2.11.8
+notifications:
+  email: false
+before_install:
+- npm install -g bower@1.8.0
+- bower install
 jdk:
 - oraclejdk8
 cache:

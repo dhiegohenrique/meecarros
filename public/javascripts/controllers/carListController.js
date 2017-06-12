@@ -5,16 +5,19 @@ angular.module("meecarros").controller("carListController", ["$scope", "$state",
 function carListController($scope, $state, $stateParams, $rootScope, carService, personService, $q, colorService, loadingService) {
     var persons;
     var colors;
-    
     var car = $stateParams.car;
     if (car) {
-        var index = getCarIndex(car.id);
+        console.log("chegou: " + JSON.stringify(car));
+
+        var index = getCarIndex(car.id.id);
         if (index < 0) {
             $scope.cars.push(car);
         } else {
             $scope.cars.splice(index, 1, car);
         }
     }
+
+    init();
 
     $scope.showCar = function(id, $event) {
         if ($rootScope.isCarEdit) {
@@ -58,6 +61,9 @@ function carListController($scope, $state, $stateParams, $rootScope, carService,
     };
 
     function getCarIndex(id) {
+        console.log("vai pesquisar id: " + id);
+        console.log("modelos atuais: " + $scope.cars);
+
         for (var index = 0; index < $scope.cars.length; index++) {
             if (id == $scope.cars[index].id) {
                 return index;
@@ -86,8 +92,6 @@ function carListController($scope, $state, $stateParams, $rootScope, carService,
             });
     };
 
-    init();
-
     function init() {
         var promiseCarsModels = carService.getCarsModels();
         var promisePersons = personService.getPersons();
@@ -97,6 +101,8 @@ function carListController($scope, $state, $stateParams, $rootScope, carService,
         $q.all([promiseCarsModels, promisePersons, promiseColors])
         .then(function(results) {
             $scope.cars = results[0];
+            console.log("carros carregados: " + $scope.cars);
+
             persons = results[1];
             colors = results[2];
 

@@ -14,4 +14,4 @@ sbt run
 
 A cada commit, serão realizados testes unitários no Travis. Se passarem, o deploy será realizado em http://meecarros.herokuapp.com
 
-A documentação pode ser acessada em http://meecarros.herokuapp.com/docs
+A documentação pode ser acessada em http://meecarros.herokuapp.com/docs/
