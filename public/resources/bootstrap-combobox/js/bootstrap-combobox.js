@@ -119,7 +119,7 @@
       this.$target.val(this.map[val]).trigger('change'); 	
       this.$source.val(this.map[val]).trigger('change'); 	
       this.$container.addClass('combobox-selected'); 	
-      this.selected = true; 	
+      this.selected = true; 
  	
       $("#corSelecionada").css("color", this.map[val]); 	
       return this.hide(); 	
@@ -228,10 +228,11 @@
     } 	
  	
   , highlighter: function (item) { 	
-      var query = this.query.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&'); 	
-      return item.replace(new RegExp('(' + query + ')', 'ig'), function ($1, match) { 	
-        return '<strong>' + match + '</strong>'; 	
-      }) 	
+      // var query = this.query.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&'); 	
+      // return item.replace(new RegExp('(' + query + ')', 'ig'), function ($1, match) { 	
+      //   return '<strong>' + match + '</strong>'; 	
+      // })
+      return item; 	
     } 	
  	
   , render: function (items, isColorSelect, map) { 	
@@ -244,8 +245,8 @@
         if (isColorSelect) { 	
             var color = map[item]; 	
             var iconColorSelect = "<i class=\"fa fa-square fa-2x\" aria-hidden=\"true\" style=\"color: " + color + "; margin-right:5px\"></i>"; 	
-        } 	
- 	
+        }
+
         i.find('a').html(iconColorSelect + that.highlighter(item)); 	
         return i[0]; 	
       }) 	
@@ -509,4 +510,8 @@ function removeAccents(str) {
     } 	
   } 	
   return str.join(''); 	
-} 
+}; 
+
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+};

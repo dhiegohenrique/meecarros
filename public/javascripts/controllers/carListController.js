@@ -1,8 +1,11 @@
 "use strict";
 
-angular.module("meecarros").controller("carListController", ["$scope", "$state", "$stateParams", "$rootScope", "carService", carListController]);
+angular.module("meecarros").controller("carListController", ["$scope", "$state", "$stateParams", "$rootScope", "carService", "personService", "$q", "colorService", "loadingService", carListController]);
 
-function carListController($scope, $state, $stateParams, $rootScope, carService) {
+function carListController($scope, $state, $stateParams, $rootScope, carService, personService, $q, colorService, loadingService) {
+    var persons;
+    var colors;
+    
     $scope.cars = [
         {
             "id" : "1",
@@ -18,42 +21,39 @@ function carListController($scope, $state, $stateParams, $rootScope, carService)
         }
     ];
     
-    var weatherConditions = $stateParams.weatherData;
-    if (weatherConditions) {
-        var index = getCarIndex(weatherConditions.id);
+    var car = $stateParams.car;
+    if (car) {
+        var index = getCarIndex(car.id);
         if (index < 0) {
-            $scope.cars.push(weatherConditions);
+            $scope.cars.push(car);
         } else {
             console.log("adiciona no índice: " + index);
-            $scope.cars.splice(index, 1, weatherConditions);
+            $scope.cars.splice(index, 1, car);
         }
     }
 
     $scope.showCar = function(id, $event) {
         if ($rootScope.isCarEdit) {
-            showConfirmModal();
+            showConfirmModal(id);
             return;
         }
 
         if ($event) {
             var idElement = $event.target.id;
             if (idElement && idElement == "delete") {
-                deleteCar();
-                // return;
+                deleteCar(id);
+                return;
             }
-
-            return;
         }
 
-        $state.go("car", {"id" : id});
+        $state.go("car", {"id" : id, "persons" : persons, "colors" : colors});
     };
 
-    function showConfirmModal() {
+    function showConfirmModal(id) {
         $('#modal-confirm')
             .modal('show')
             .on('click', '#yes', function(e) {
-                //pegar o id do carro clicado
-                $state.go("car");
+                $state.go("car", {"id" : id, "persons" : persons, "colors" : colors});
             });
     };
 
@@ -71,17 +71,30 @@ function carListController($scope, $state, $stateParams, $rootScope, carService)
         $("#modal-logoff")
             .modal("show")
             .on('click', '#yes', function(e) {
-                //pegar o id do carro clicado
-                console.log("confirmou");
+                console.log("deletar o carro: " + id);
             });
     };
 
     init();
 
     function init() {
-        carService.getCarsModels()
-            .then(function(response) {
-                $scope.cars = response;
-            });
+        var promiseCarsModels = carService.getCarsModels();
+        var promisePersons = personService.getPersons();
+        var promiseColors = colorService.getColors();
+
+        loadingService.openModal();
+        $q.all([promiseCarsModels, promisePersons, promiseColors])
+        .then(function(results) {
+            $scope.cars = results[0];
+            persons = results[1];
+            colors = results[2];
+
+            if ($scope.car) {
+                carMaster = angular.copy($scope.car);
+            }
+        })
+        .finally(function() {
+            loadingService.closeModal();
+        });
     };
 };

@@ -10,6 +10,9 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.LongSerializationPolicy;
 
 import authenticator.SecuredAuthenticator;
 import io.swagger.annotations.Api;
@@ -62,7 +65,7 @@ public class CarsController extends Controller {
     public CompletionStage<Result> cars() {
         return this.carService.getCars().thenApplyAsync(cars -> {
             List<Car> listCars = cars.collect(Collectors.toList());
-            return ok(Json.toJson(listCars));
+            return ok(this.toJSON(listCars));
         }, this.executionContext.current());
     }
     
@@ -106,7 +109,7 @@ public class CarsController extends Controller {
     		 }
     		 
     		 Car carResource = findFirst.get();
-    		 return ok(Json.toJson(carResource));
+    		 return ok(this.toJSON(carResource));
          }, this.executionContext.current());
     }
 
@@ -195,5 +198,12 @@ public class CarsController extends Controller {
         return this.carService.insert(car).thenApplyAsync(response -> {
             return created(Json.toJson(response));
         }, this.executionContext.current());
+    }
+    
+    private String toJSON(Object object) {
+    	GsonBuilder gsonBuilder = new GsonBuilder();
+    	gsonBuilder.setLongSerializationPolicy( LongSerializationPolicy.STRING );
+		Gson gson = gsonBuilder.create();
+		return gson.toJson(object); 
     }
 }

@@ -1,53 +1,16 @@
 "use strict";
 
-angular.module("meecarros").controller("carController", ["$scope", "$state", "$rootScope", "$stateParams", "personService", "carService", "$q", carController]);
+angular.module("meecarros").controller("carController", ["$scope", "$state", "$rootScope", "$stateParams", "carService", "$q", "loadingService", carController]);
 
-function carController($scope, $state, $rootScope, $stateParams, personService, carService, $q) {
+function carController($scope, $state, $rootScope, $stateParams, carService, $q, loadingService) {
     $scope.submitted = false;
     $scope.isValidYear = true;
+    $scope.persons = $stateParams.persons;
+    $scope.colors = $stateParams.colors;
+    $scope.car = {};
     var carMaster;
 
-    var promisePersons = fillInPersons();
-    var promiseCar = fillInCar();
-
-    $q.all([promisePersons, promiseCar])
-        .then(function(results) {
-            $scope.persons = results[0];
-            $scope.car = results[1];
-
-            console.log("results: " + JSON.stringify($scope.persons));
-            // $scope.$broadcast("changeLanguage", results[1]);
-            if ($scope.car) {
-                carMaster = angular.copy($scope.car);
-            }
-        });
-
-    // $scope.persons = [
-    //     {
-    //         "id" : "1",
-    //         "name" : "Maria"
-    //     },
-    //     {
-    //         "id" : "2",
-    //         "name" : "João"
-    //     },
-    //     {
-    //         "id" : "3",
-    //         "name" : "José"
-    //     }
-    // ];
-
-
-
-    // $scope.car = {
-    //     "id" : "1",
-    //     "personId" : "1",
-    //     "model" : "meuModelo",
-    //     "year" : "1999",
-    //     "colorId" : "#008000"
-    // };
-
-    // var carMaster = angular.copy($scope.car);
+    fillInCar();
 
     $scope.saveCar = function(isValid) {
         $scope.submitted = true;
@@ -57,8 +20,19 @@ function carController($scope, $state, $rootScope, $stateParams, personService, 
             return;
         }
 
-        $rootScope.isCarEdit = false;
-        $state.go("carlist", {"weatherData" : $scope.car});
+        loadingService.openModal();
+        carService.insertUpdate($scope.car)
+            .then(function(response) {
+                $rootScope.isCarEdit = false;
+                if (response) {
+                    $scope.car.id = response;
+                }
+
+                $state.go("carlist", {"car" : $scope.car});
+            })
+            .finally(function() {
+                loadingService.closeModal();
+            });
     };
 
     $scope.validateYear = function() {
@@ -75,6 +49,26 @@ function carController($scope, $state, $rootScope, $stateParams, personService, 
 
         var currentYear = new Date().getFullYear();
         $scope.isValidYear = (currentYear - parseInt($scope.car.year)) < 30;
+    };
+
+    function fillInCar() {
+        var id = $stateParams.id;
+        if (!id) {
+            return;
+        }
+
+        loadingService.openModal();
+        carService.getCarById(id)
+            .then(function(response) {
+                $scope.car = response;
+
+                if ($scope.car) {
+                    carMaster = angular.copy($scope.car);
+                }
+            })
+            .finally(function() {
+                loadingService.closeModal();
+            });
     };
 
     $(document).ready(function(){
@@ -96,29 +90,4 @@ function carController($scope, $state, $rootScope, $stateParams, personService, 
 
         $('.combobox').combobox();
     });
-
-    function fillInPersons() {
-        // personService.getPersons()
-        //     .then(function(response) {
-        //         console.log("pessoas: " + JSON.stringify(response));
-        //         $scope.persons = response;
-        //     });
-        return personService.getPersons();
-    };
-
-    function fillInCar() {
-        var id = $stateParams.id;
-        // console.log("fillInCar: " + id);
-
-        if (!id) {
-            return;
-        }
-
-        // carService.getCarById(id)
-        //     .then(function(response) {
-        //         console.log("carro carregado: " + JSON.stringify(response));
-        //         $scope.car = response;
-        //     });
-        return carService.getCarById(id);
-    }
 };

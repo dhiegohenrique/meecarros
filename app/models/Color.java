@@ -5,17 +5,17 @@ import io.swagger.annotations.ApiModelProperty;
 public class Color {
 
 	@ApiModelProperty(example ="#FFFFFF")
-	private String id;
+	private String colorId;
 	
 	@ApiModelProperty(example = "Branco")
 	private String name;
 
-	public String getId() {
-		return this.id;
+	public String getColorId() {
+		return this.colorId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setColorId(String colorId) {
+		this.colorId = colorId;
 	}
 
 	public String getName() {

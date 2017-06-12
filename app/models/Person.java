@@ -5,17 +5,17 @@ import io.swagger.annotations.ApiModelProperty;
 public class Person {
 
 	@ApiModelProperty(example = "123")
-	private Long id;
+	private Long personId;
 	
 	@ApiModelProperty(example = "Maria")
 	private String name;
 
-	public Long getId() {
-		return this.id;
+	public Long getPersonId() {
+		return this.personId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setPersonId(Long id) {
+		this.personId = id;
 	}
 
 	public String getName() {

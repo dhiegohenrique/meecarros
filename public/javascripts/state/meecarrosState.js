@@ -15,13 +15,13 @@ function meecarrosState($stateProvider, $urlRouterProvider) {
         url: "/carlist",
         templateUrl: "./../partials/carList.html",
         controller: "carListController",
-        params: {"weatherData": null}
+        params: {"car": null}
     })
     .state("car", {
         url: "/car",
         parent: "carlist",
         templateUrl: "./../partials/carForm.html",
         controller: "carController",
-        params: {"id": null}
+        params: {"id": null, "persons" : null, "colors" : null}
     });
 }

@@ -1,16 +1,12 @@
 "use strict";
 
-angular.module("meecarros").service("carService", carService);
+angular.module("meecarros").service("colorService", colorService);
 
-function carService($http, $q) {
-    function getCarsModels() {
+function colorService($http, $q, localStorageService) {
+    function getColors() {
         var deferred = $q.defer();
 
-        var token = {
-            "token" : city
-        }
-
-        $http.get("/cars/models", token)
+        $http.get("/colors")
             .then(function(response) {
                 deferred.resolve(response.data);
             }, function(error) {
@@ -21,6 +17,6 @@ function carService($http, $q) {
     };
 
     return {
-        "getCarsModels" : getCarsModels
+        "getColors" : getColors
     }
 }

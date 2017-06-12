@@ -38,7 +38,7 @@
 						class="col-xs-12 col-sm-12 col-md-11 col-lg-11 no-padding-width">
 						<label>Token do Pipedrive:</label> <input type="text"
 							class="form-control" placeholder="Token do Pipedrive"
-							ng-model="city" required ng-disabled="spinner || isTokenValid" name="name"
+							ng-model="city" required ng-disabled="isTokenValid" name="name"
 							id="token">
 					</div>
 
@@ -46,9 +46,9 @@
 						class="col-xs-12 col-sm-12 col-md-1 col-lg-1 no-padding-width demo"
 						style="padding-top: 25px">
 						<button type="submit " class="btn btn-group-justified" ng-class="{'btn-primary' : !isTokenValid, 'btn-danger' : isTokenValid}"
-							ng-disabled="spinner">
+							>
 							<i class="fa "
-								ng-class="{ 'fa-spinner fa-pulse': spinner, 'fa-check': !spinner, 'fa-trash' : isTokenValid} "></i>
+								ng-class="{ 'fa-check': !isTokenValid, 'fa-trash' : isTokenValid} "></i>
 							{{!isTokenValid ? "Validar" : "Limpar"}}
 						</button>
 					</div>
@@ -87,11 +87,11 @@
 	<script src="javascripts/services/loginService.js"></script>
 	<script src="javascripts/services/carService.js"></script>
 	<script src="javascripts/services/personService.js"></script>
+	<script src="javascripts/services/colorService.js"></script>
 	<script src="javascripts/services/loadingService.js"></script>
 	<script src="javascripts/directives/directives.js"></script>
 	<script src="javascripts/config/interceptorsConfig.js"></script>
 	<script src="javascripts/config/templatesConfig.js"></script>
-	<script src="javascripts/interceptors/loadingInterceptor.js"></script>
 	<script src="javascripts/interceptors/errorInterceptor.js"></script>
 	<script src="javascripts/state/meecarrosState.js"></script>
 	<!-- endbuild -->

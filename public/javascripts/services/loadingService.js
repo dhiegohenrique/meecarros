@@ -5,9 +5,10 @@ angular.module("meecarros").service("loadingService", ["$uibModal", "$templateCa
 function loadingService($uibModal, $templateCache, $uibModalStack) {
     var service = {};
     var instance;
+    var isOpen = false;
 
     service.openModal = function openModal() {
-        if (instance) {
+        if (isOpen) {
             return;
         }
 
@@ -16,29 +17,17 @@ function loadingService($uibModal, $templateCache, $uibModalStack) {
             size : "sm",
             backdrop : "static"
         });
-    };
 
-    service.openModalTemplate = function openModal(myTemplate) {
-        if (instance) {
-            return;
-        }
-
-        console.log("myTemplate: " + myTemplate);
-
-        instance = $uibModal.open({
-            templateUrl : myTemplate,
-            size : "sm",
-            backdrop : "static"
+        isOpen = true;
+        instance.result.finally(function () {
+            isOpen = false;
         });
     };
 
     service.closeModal = function closeModal() {
-        if (!instance) {
-            return;
+        if (isOpen) {
+            instance.close();
         }
-
-        instance.close();
-        instance = null;
     }
 
     return service;

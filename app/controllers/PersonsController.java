@@ -66,12 +66,18 @@ public class PersonsController extends Controller {
 
 			while (iterator.hasNext()) {
 				JsonNode next = iterator.next();
-				Person person = Json.fromJson(next, Person.class);
-				listPersons.add(person);
+				listPersons.add(this.getPerson(next));
 			}
 			
 			listPersons.sort(this.personsComparator);
 			return ok(Json.toJson(listPersons));
         }, this.executionContext.current());
+	}
+
+	private Person getPerson(JsonNode next) {
+		Person person = new Person();
+		person.setPersonId(next.get("id").asLong());
+		person.setName(next.get("name").asText());
+		return person;
 	}
 }

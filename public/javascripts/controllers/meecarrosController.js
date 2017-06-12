@@ -1,8 +1,8 @@
 "use strict";
 
-angular.module("meecarros").controller("meecarrosController", ["$scope", "loginService", "$state", "$q", "localStorageService", "$window", "$rootScope", meecarrosController]);
+angular.module("meecarros").controller("meecarrosController", ["$scope", "loginService", "$state", "$q", "localStorageService", "$window", "$rootScope", "loadingService", meecarrosController]);
 
-function meecarrosController($scope, loginService, $state, $q, localStorageService, $window, $rootScope) {
+function meecarrosController($scope, loginService, $state, $q, localStorageService, $window, $rootScope, loadingService) {
     $scope.city = "32fffa616b7fb3d2940e99fd06423e04db4591cb";
     
     $scope.submitForm = function(isValid) {
@@ -19,8 +19,8 @@ function meecarrosController($scope, loginService, $state, $q, localStorageServi
             logoff();
         }
 
-        $scope.spinner = true;
         $scope.isTokenValid = false;
+        loadingService.openModal();
         loginService.validate($scope.city)
             .then(function(response) {
                 $scope.isTokenValid = true;
@@ -29,6 +29,9 @@ function meecarrosController($scope, loginService, $state, $q, localStorageServi
             })
             .catch(function() {
                 localStorageService.remove("token");
+            })
+            .finally(function() {
+                loadingService.closeModal();
             });
     };
 

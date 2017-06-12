@@ -32,6 +32,10 @@ libraryDependencies +="io.swagger" %% "swagger-play2" % "1.5.3"
 libraryDependencies +="org.webjars" %% "webjars-play" % "2.5.0-4"
 libraryDependencies +="org.webjars" % "swagger-ui" % "2.2.0"
 
+// https://mvnrepository.com/artifact/com.google.code.gson/gson
+libraryDependencies += "com.google.code.gson" % "gson" % "2.8.1"
+
+
 PlayKeys.externalizeResources := false
 
 // Compile the project before generating Eclipse files, so that generated .scala or .class files for views and routes are present

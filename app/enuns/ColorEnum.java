@@ -3,8 +3,8 @@ package enuns;
 public enum ColorEnum {
 
 	WHITE("#FFFFFF", "Branco"),
-	BLACK("#008000", "Preto"),
-	GREEN("#000000", "Verde");
+	BLACK("#000000", "Preto"),
+	GREEN("#008000", "Verde");
 	
 	private String id;
 	private String color;

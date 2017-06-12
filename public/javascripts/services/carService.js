@@ -41,10 +41,34 @@ function carService($http, $q, localStorageService) {
             });
 
         return deferred.promise;
-    }
+    };
+
+    function insertUpdate(car) {
+        var token = localStorageService.get("token");
+        var deferred = $q.defer();
+
+        var req = {
+            method: (!car.id ? "POST" : "PUT"),
+            url: (!car.id ? "/cars" : "/cars/" + car.id),
+            headers: {
+                "token": token
+            },
+            data: car
+        };
+
+        $http(req)
+            .then(function(response) {
+                deferred.resolve(response.data);
+            }, function(error) {
+                deferred.reject(error);
+            });
+
+        return deferred.promise;
+    };
 
     return {
         "getCarsModels" : getCarsModels,
-        "getCarById" : getCarById
+        "getCarById" : getCarById,
+        "insertUpdate" : insertUpdate
     }
 }

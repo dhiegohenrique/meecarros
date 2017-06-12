@@ -3,18 +3,17 @@
         <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9" style="background-color: yellow; padding-right:  10px">
             <h2>Novo carro</h2>
 
-            Person: {{persons}}
-
             <form name="form" novalidate ng-submit="saveCar(form.$valid)">
-                <label>Responsável:</label>
 
-                <div ng-class="{ 'has-error' : form.personId.$invalid && submitted}">
-                    <select class="combobox input-large form-control"
-                        required ng-model="car.personId" id="personId"
-                    >
+                <div ng-class="{ 'has-error' : form.personId.$invalid && submitted}" >
+                    <label>Responsável:</label>
+                    <select class="combobox input-large form-control" required ng-model="car.personId"
+                        ng-class="{ 'has-error' : form.personId.$invalid && submitted}"
+                        id="personId">
                         <option value="" selected="selected">Selecione o responsável</option>
-                        <option ng-repeat="person in persons" value="{{person.id}}">{{person.name}}</option>
+                        <option ng-repeat="person in persons" value="{{person.personId}}">{{person.name}}</option>
                     </select>
+
                     <div class="alert alert-danger" ng-show="form.personId.$invalid && submitted">
                         <span>Selecione o responsável.</span>
                     </div>
@@ -53,9 +52,7 @@
                             ng-class="{ 'has-error' : form.colorId.$invalid && submitted}"
                             id="colorId">
                             <option value="" selected="selected">Selecione a cor</option>
-                            <option value="#FFFFFF" >Branco</option>
-                            <option value="#008000" >Verde</option>
-                            <option value="#000000">Preto</option>
+                            <option ng-repeat="color in colors" value="{{color.colorId}}">{{color.name}}</option>
                         </select>
                     </div>
 

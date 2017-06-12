@@ -36,7 +36,7 @@ public class ColorsController extends Controller {
     	List<Color> listColors = new ArrayList<>();
     	for (ColorEnum colorEnum : ColorEnum.values()) {
     		Color color = new Color();
-    		color.setId(colorEnum.getId());
+    		color.setColorId(colorEnum.getId());
     		color.setName(colorEnum.getColor());
     		
     		listColors.add(color);
