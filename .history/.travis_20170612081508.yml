@@ -13,7 +13,7 @@ before_cache:
 - rm -rf $HOME/.ivy2/cache/scala_*/sbt_*/com.typesafe.play/*
 - find $HOME/.ivy2/cache -name "ivydata-*.properties" -print0 | xargs -n10 -0 rm
 script:
-- sbt stage deployHeroku
+- sbt stage 
 # deploy:
 #   provider: heroku
 #   api_key:
