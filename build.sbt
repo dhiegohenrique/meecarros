@@ -42,3 +42,6 @@ EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClass
 
 testOptions in Test := Seq(Tests.Argument(TestFrameworks.JUnit, "-a", "-v"))
 herokuAppName in Compile := "meecarros"
+herokuConfigVars in Compile := Map(
+  "HEROKU_API_KEY" -> "5ef56961-7ec5-41ae-84e3-937a2caa4e8d"
+)

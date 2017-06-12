@@ -8,13 +8,11 @@ public class SecuredAuthenticator extends Security.Authenticator {
 
 	@Override
 	public String getUsername(Context context) {
-//		String token = context.session().get("token");
-		String token = context.request().getHeader("token");
-		return token;
+		return context.request().getHeader("token");
 	}
 
 	@Override
 	public Result onUnauthorized(Context arg0) {
-		return unauthorized();
+		return unauthorized("Acesso não autorizado. Informe um token válido.");
 	}
 }

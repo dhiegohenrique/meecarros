@@ -1,0 +1,69 @@
+<div class="container carform" click-outside="closeThis()" outside-if-not="outside-off">
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9" style="background-color: yellow; padding-right:  10px">
+            <h2>Novo carro</h2>
+
+            <form name="form" novalidate ng-submit="saveCar(form.$valid)">
+                <label>Responsável:</label>
+
+                <div ng-class="{ 'has-error' : form.personId.$invalid && submitted}">
+                    <select class="combobox input-large form-control"
+                        required ng-model="car.personId" id="personId"
+                    >
+                        <option value="" selected="selected">Selecione o responsável</option>
+                        <option ng-repeat="person in persons" value="{{person.id}}">{{person.name}}</option>
+                    </select>
+                    <div class="alert alert-danger" ng-show="form.personId.$invalid && submitted">
+                        <span>Selecione o responsável.</span>
+                    </div>
+                </div>
+
+                <label>Modelo:</label> 
+                <input type="text"
+                    class="form-control" placeholder="Insira o modelo"
+                    ng-model="car.model" required name="model" id="model"
+                    ng-class="{ 'has-error' : form.model.$invalid && submitted}">
+                
+                <div class="alert alert-danger" ng-show="form.model.$invalid && submitted">
+                    <span>Insira o modelo.</span>
+                </div>
+
+                <label>Ano:</label> 
+                <input type="text"
+                    class="form-control" placeholder="Ano"
+                    ng-model="car.year" required name="year" id="year" style="width: 10%" maxlength="4" 
+                    ui-number-mask="0" ui-hide-group-sep ng-blur="validateYear()"
+                    ng-class="{ 'has-error' : (form.year.$invalid && submitted) || (submitted && !isValidYear)}"
+                    >
+
+                <div class="alert alert-danger" ng-show="form.year.$invalid && submitted">
+                    <span>Insira o ano.</span>
+                </div>
+
+                <div class="alert alert-danger" ng-show="submitted && !isValidYear">
+                    <span>Apenas carros com menos de 30 anos são aceitos.</span>
+                </div>
+
+                <div ng-class="{ 'has-error' : form.colorId.$invalid && submitted}" >
+                    <label>Cor:</label> 
+                    <div style="width: 30%">
+                        <select class="combobox input-large form-control" color="true" required ng-model="car.colorId"
+                            ng-class="{ 'has-error' : form.colorId.$invalid && submitted}"
+                            id="colorId">
+                            <option value="" selected="selected">Selecione a cor</option>
+                            <option value="#FFFFFF" >Branco</option>
+                            <option value="#008000" >Verde</option>
+                            <option value="#000000">Preto</option>
+                        </select>
+                    </div>
+
+                    <div class="alert alert-danger" ng-show="form.colorId.$invalid && submitted">
+                        <span>Selecione a cor.</span>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary pull-right" type="submit" style="width: 100px">Salvar</button>
+            </form>
+        </div>
+    </div>
+</div>
