@@ -1,7 +1,6 @@
 <div class="container carform" click-outside="closeThis()" outside-if-not="outside-off">
     <div class="row">
-        <!--<div class="col-xs-12 col-sm-8 col-md-9 col-lg-9" style="background-color: yellow; padding-right:  10px">-->
-        <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9 rounded shadow-3" style="background: url('resources/bg6.png')">
+        <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9 rounded shadow-3" style="background: url('resources/bg8.png')">
             <h2>Novo carro</h2>
 
             <form name="form" novalidate ng-submit="saveCar(form.$valid)">
@@ -10,7 +9,7 @@
                     <label>Responsável:</label>
                     <select class="combobox input-large form-control" required ng-model="car.personId"
                         ng-class="{ 'has-error' : form.personId.$invalid && submitted}"
-                        id="personId">
+                        id="personId" name="personId">
                         <option value="" selected="selected">Selecione o responsável</option>
                         <option ng-repeat="person in persons" value="{{person.personId}}">{{person.name}}</option>
                     </select>
@@ -51,7 +50,7 @@
                     <div style="width: 30%">
                         <select class="combobox input-large form-control" color="true" required ng-model="car.colorId"
                             ng-class="{ 'has-error' : form.colorId.$invalid && submitted}"
-                            id="colorId">
+                            id="colorId" name="colorId">
                             <option value="" selected="selected">Selecione a cor</option>
                             <option ng-repeat="color in colors" value="{{color.colorId}}">{{color.name}}</option>
                         </select>

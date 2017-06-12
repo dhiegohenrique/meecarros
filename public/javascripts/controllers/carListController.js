@@ -6,21 +6,6 @@ function carListController($scope, $state, $stateParams, $rootScope, carService,
     var persons;
     var colors;
     
-    $scope.cars = [
-        {
-            "id" : "1",
-            "model" : "modelo1"
-        },
-        {
-            "id" : "2",
-            "model" : "modelo2"
-        },
-        {
-            "id" : "3",
-            "model" : "modelo3"
-        }
-    ];
-    
     var car = $stateParams.car;
     if (car) {
         var index = getCarIndex(car.id);

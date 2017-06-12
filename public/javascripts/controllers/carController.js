@@ -13,6 +13,7 @@ function carController($scope, $state, $rootScope, $stateParams, carService, $q,
     fillInCar();
 
     $scope.saveCar = function(isValid) {
+        console.log("isValid: " + isValid);
         $scope.submitted = true;
 
         $scope.validateYear();
