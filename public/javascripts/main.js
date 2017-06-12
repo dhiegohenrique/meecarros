@@ -5,7 +5,6 @@ angular.module("meecarros",
             "ui.bootstrap",
             "ui.router",
             "LocalStorageModule",
-            "ui.utils.masks",
-            "angularModalService"
+            "ui.utils.masks"
         ]
 );
