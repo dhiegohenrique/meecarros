@@ -66,9 +66,30 @@ function carService($http, $q, localStorageService) {
         return deferred.promise;
     };
 
+    function deleteCar(id) {
+        var token = localStorageService.get("token");
+        var deferred = $q.defer();
+
+        var config = {
+            headers: {
+                "token": token
+            }
+        };
+
+        $http.delete("/cars/" + id, config)
+            .then(function(response) {
+                deferred.resolve(response.data);
+            }, function(error) {
+                deferred.reject(error);
+            });
+
+        return deferred.promise;
+    };
+
     return {
         "getCarsModels" : getCarsModels,
         "getCarById" : getCarById,
-        "insertUpdate" : insertUpdate
+        "insertUpdate" : insertUpdate,
+        "deleteCar" : deleteCar,
     }
 }

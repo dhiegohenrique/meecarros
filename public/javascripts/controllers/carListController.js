@@ -27,32 +27,55 @@ function carListController($scope, $state, $stateParams, $rootScope, carService,
         if (index < 0) {
             $scope.cars.push(car);
         } else {
-            console.log("adiciona no índice: " + index);
             $scope.cars.splice(index, 1, car);
         }
     }
 
     $scope.showCar = function(id, $event) {
         if ($rootScope.isCarEdit) {
-            showConfirmModal(id);
+            showConfirmModal(id, $event);
             return;
         }
 
-        if ($event) {
-            var idElement = $event.target.id;
-            if (idElement && idElement == "delete") {
-                deleteCar(id);
-                return;
-            }
+        if (isDeletingCar($event)) {
+            deleteCar(id);
+            return;
         }
+
+        // if ($event) {
+        //     var idElement = $event.target.id;
+        //     if (idElement && idElement == "delete") {
+        //         deleteCar(id);
+        //         return;
+        //     }
+        // }
 
         $state.go("car", {"id" : id, "persons" : persons, "colors" : colors});
     };
 
-    function showConfirmModal(id) {
+    function isDeletingCar($event) {
+        if (!$event) {
+            return false;
+        }
+
+        var idElement = $event.target.id;
+        if (!idElement) {
+            return false;
+        }
+
+        return idElement == "delete";
+    }
+
+    function showConfirmModal(id, $event) {
         $('#modal-confirm')
             .modal('show')
             .on('click', '#yes', function(e) {
+                if (isDeletingCar($event)) {
+                    deleteCar(id);
+                    return;
+                }
+
+                $rootScope.isCarEdit = false;
                 $state.go("car", {"id" : id, "persons" : persons, "colors" : colors});
             });
     };
@@ -68,11 +91,22 @@ function carListController($scope, $state, $stateParams, $rootScope, carService,
     };
 
     function deleteCar(id) {
-        $("#modal-logoff")
-            .modal("show")
-            .on('click', '#yes', function(e) {
-                console.log("deletar o carro: " + id);
+        loadingService.openModal();
+        carService.deleteCar(id)
+            .then(function(response) {
+                var index = getCarIndex(id);
+                $scope.cars.splice(index, 1);
+                $state.go("carlist");
+            })
+            .finally(function() {
+                loadingService.closeModal();
             });
+
+        // $("#modal-logoff")
+        //     .modal("show")
+        //     .on('click', '#yes', function(e) {
+        //         console.log("deletar o carro: " + id);
+        //     });
     };
 
     init();

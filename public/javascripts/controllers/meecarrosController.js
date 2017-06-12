@@ -44,6 +44,7 @@ function meecarrosController($scope, loginService, $state, $q, localStorageServi
         $('#modal-confirm')
             .modal('show')
             .on('click', '#yes', function(e) {
+                $rootScope.isCarEdit = false;
                 logoff();
             });
     };
