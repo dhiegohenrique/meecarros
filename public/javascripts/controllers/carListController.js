@@ -27,14 +27,6 @@ function carListController($scope, $state, $stateParams, $rootScope, carService,
             return;
         }
 
-        // if ($event) {
-        //     var idElement = $event.target.id;
-        //     if (idElement && idElement == "delete") {
-        //         deleteCar(id);
-        //         return;
-        //     }
-        // }
-
         $state.go("car", {"id" : id, "persons" : persons, "colors" : colors});
     };
 
@@ -76,22 +68,22 @@ function carListController($scope, $state, $stateParams, $rootScope, carService,
     };
 
     function deleteCar(id) {
-        loadingService.openModal();
-        carService.deleteCar(id)
-            .then(function(response) {
-                var index = getCarIndex(id);
-                $scope.cars.splice(index, 1);
-                $state.go("carlist");
-            })
-            .finally(function() {
-                loadingService.closeModal();
-            });
-
-        // $("#modal-logoff")
-        //     .modal("show")
-        //     .on('click', '#yes', function(e) {
-        //         console.log("deletar o carro: " + id);
+        // loadingService.openModal();
+        // carService.deleteCar(id)
+        //     .then(function(response) {
+        //         var index = getCarIndex(id);
+        //         $scope.cars.splice(index, 1);
+        //         $state.go("carlist");
+        //     })
+        //     .finally(function() {
+        //         loadingService.closeModal();
         //     });
+
+        $("#modal-logoff")
+            .modal("show")
+            .on('click', '#yes', function(e) {
+                console.log("deletar o carro: " + id);
+            });
     };
 
     init();
