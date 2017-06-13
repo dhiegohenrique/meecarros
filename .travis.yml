@@ -2,10 +2,15 @@ language: scala
 scala:
 - 2.11.8
 install:
-  - . $HOME/.nvm/nvm.sh
-  - nvm install stable
-  - nvm use stable
-  - npm install
+- sudo n 6.
+- sudo npm install -g npm@3.10.0
+- sudo npm install -g npm@next
+- sudo n 7.
+
+  # - . $HOME/.nvm/nvm.sh
+  # - nvm install stable
+  # - nvm use stable
+  # - npm install
 notifications:
   email: false
 before_install:
