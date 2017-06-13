@@ -25,5 +25,4 @@ GET   /javascripts/*file                   controllers.Assets.at(path="/public/j
 
 GET   /partials/*file                   controllers.Assets.at(path="/public/partials",file)
 
-GET  /favicon.ico        controllers.Assets.at(path="/public/images", file="car.ico")
-GET  /favicon.png        controllers.Assets.at(path="/public/images", file="favicon.png")
+GET  /favicon.png        controllers.Assets.at(path="/public", file="favicon.png")

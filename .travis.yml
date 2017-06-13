@@ -1,30 +1,14 @@
 language: scala
 scala:
 - 2.11.8
-install:
-# - sudo apt-get update
-# - sudo apt-get install nodejs
-# - sudo apt-get install npm
-
-  #conflito de node:
-  # - . $HOME/.nvm/nvm.sh
-  # - nvm install stable
-  # - nvm use stable
-  # - npm install
-# - . $HOME/.nvm/nvm.sh
-# - nvm install node 7.4.0
-# - nvm use node 7.4.0
-
 notifications:
   email: false
 before_install:
 - . $HOME/.nvm/nvm.sh
 - nvm install node 7.4
 - nvm use node 7.4
-# - rm -rf node_modules/ && npm install node-gyp && sbt web-assets:jseNpmNodeModules
 - npm install
 - npm install -g bower@1.8.0
-# - npm install -g gulp@3.9.1
 - bower install
 jdk:
 - oraclejdk8
