@@ -17,6 +17,9 @@ before_cache:
 - rm -rf $HOME/.ivy2/cache/scala_*/sbt_*/com.typesafe.play/*
 - find $HOME/.ivy2/cache -name "ivydata-*.properties" -print0 | xargs -n10 -0 rm
 before_deploy:
+- sudo npm cache clean -f
+- sudo npm install -g n
+- sudo n stable
 - gulp
 - cd dist
 deploy:
