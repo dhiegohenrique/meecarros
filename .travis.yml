@@ -22,7 +22,7 @@ before_install:
 # - nvm install node 7.4
 # - nvm use node 7.4
 # - rm -rf node_modules/ && npm install node-gyp && sbt web-assets:jseNpmNodeModules
-
+- npm install
 - npm install -g bower@1.8.0
 # - npm install -g gulp@3.9.1
 - bower install
