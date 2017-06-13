@@ -15,9 +15,14 @@
 <link rel="stylesheet"
 	href="vendor/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet"
-	href="vendor/bootstrap-combobox/css/bootstrap-combobox.css">
+	href="resources/bootstrap-combobox/css/bootstrap-combobox.css">
+<link rel="stylesheet" href="vendor/angular-confirm/dist/angular-confirm.min.css">
+
+<!-- endbuild -->
+
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Oswald">
+
 
 <body ng-controller="meecarrosController" class="body">
 	<div class="container">
@@ -31,14 +36,14 @@
 
 		<div class="row">
 			<div id="equalheight">
-				<form name="cityForm" novalidate
-					ng-submit="submitForm(cityForm.$valid)">
+				<form name="tokenForm" novalidate
+					ng-submit="submitForm(tokenForm.$valid)">
 
 					<div
 						class="col-xs-12 col-sm-12 col-md-11 col-lg-11 no-padding-width">
 						<label>Token do Pipedrive:</label> <input type="text"
 							class="form-control" placeholder="Token do Pipedrive"
-							ng-model="city" required ng-disabled="spinner || isTokenValid" name="name"
+							ng-model="token" required ng-disabled="isTokenValid" name="token"
 							id="token">
 					</div>
 
@@ -46,10 +51,10 @@
 						class="col-xs-12 col-sm-12 col-md-1 col-lg-1 no-padding-width demo"
 						style="padding-top: 25px">
 						<button type="submit " class="btn btn-group-justified" ng-class="{'btn-primary' : !isTokenValid, 'btn-danger' : isTokenValid}"
-							ng-disabled="spinner">
+							>
 							<i class="fa "
-								ng-class="{ 'fa-spinner fa-pulse': spinner, 'fa-check': !spinner, 'fa-trash' : isTokenValid} "></i>
-							{{!isTokenValid ? "Validar" : "Limpar"}}
+								ng-class="{ 'fa-sign-in': !isTokenValid, 'fa-sign-out' : isTokenValid} "></i>
+							{{!isTokenValid ? "Login" : "Logoff"}}
 						</button>
 					</div>
 				</form>
@@ -60,13 +65,9 @@
 	<br />
 	<br />
 
-	<div ng-include="'partials/validationMessage.html'"
-		ng-show="cityForm.name.$invalid && cityForm.$submitted"></div>
+	<div ng-include="'partials/validationMessage.html'" ng-show="tokenForm.token.$invalid && tokenForm.$submitted"></div>
 
 	<ui-view></ui-view>
-
-	<!--<div ng-include="'partials/modalLogoff.html'"></div>-->
-	<div ng-include="'partials/modalConfirm.html'"></div>
 
 	<!-- build:js -->
 	<script src="vendor/jquery/dist/jquery.min.js"></script>
@@ -79,17 +80,20 @@
 	<script src="vendor/angular-local-storage/dist/angular-local-storage.min.js"></script>
 	<script src="resources/bootstrap-combobox/js/bootstrap-combobox.js"></script>
 	<script src="vendor/angular-input-masks/angular-input-masks-standalone.min.js"></script>
+	<script src="vendor/angular-confirm/dist/angular-confirm.min.js"></script>
 	<script src="javascripts/main.js"></script>
 	<script src="javascripts/controllers/meecarrosController.js"></script>
 	<script src="javascripts/controllers/errorMessageController.js"></script>
 	<script src="javascripts/controllers/carListController.js"></script>
 	<script src="javascripts/controllers/carController.js"></script>
 	<script src="javascripts/services/loginService.js"></script>
+	<script src="javascripts/services/carService.js"></script>
+	<script src="javascripts/services/personService.js"></script>
+	<script src="javascripts/services/colorService.js"></script>
 	<script src="javascripts/services/loadingService.js"></script>
-	<script src="javascripts/directives/directives.js"></script>
+	<script src="javascripts/services/modalService.js"></script>
 	<script src="javascripts/config/interceptorsConfig.js"></script>
 	<script src="javascripts/config/templatesConfig.js"></script>
-	<script src="javascripts/interceptors/loadingInterceptor.js"></script>
 	<script src="javascripts/interceptors/errorInterceptor.js"></script>
 	<script src="javascripts/state/meecarrosState.js"></script>
 	<!-- endbuild -->

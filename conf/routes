@@ -16,6 +16,14 @@ GET   /vendor/*file                   controllers.Assets.at(path="/public/vendor
 
 GET   /resources/*file                   controllers.Assets.at(path="/public/resources",file)
 
+GET   /css/*file                   controllers.Assets.at(path="/public/css",file)
+
+GET   /fonts/*file                   controllers.Assets.at(path="/public/fonts",file)
+GET   /font-awesome/fonts/*file                   controllers.Assets.at(path="/public/fonts",file)
+
 GET   /javascripts/*file                   controllers.Assets.at(path="/public/javascripts",file)
 
 GET   /partials/*file                   controllers.Assets.at(path="/public/partials",file)
+
+GET  /favicon.ico        controllers.Assets.at(path="/public/images", file="car.ico")
+GET  /favicon.png        controllers.Assets.at(path="/public/images", file="favicon.png")
