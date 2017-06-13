@@ -17,7 +17,7 @@ install:
   # - nvm use stable
   # - npm install
 # - . $HOME/.nvm/nvm.sh
-# - nvm install node 7.4.0
+# - nvm install 7.4.0
 # - nvm use node 7.4.0
 
 notifications:
