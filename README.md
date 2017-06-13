@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/dhiegohenrique/meecarros.svg?branch=master)](https://travis-ci.org/dhiegohenrique/meecarros)
 
 Requisitos:
-1) Play Framework 2.4 ou superior;
+1) Play Framework 2.5 ou superior;
 2) Java 8;
 3) Bower 1.8 ou superior;
 
