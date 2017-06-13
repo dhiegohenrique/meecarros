@@ -49,3 +49,13 @@ herokuAppName in Compile := "meecarros"
 herokuConfigVars in Compile := Map(
   "HEROKU_API_KEY" -> "5ef56961-7ec5-41ae-84e3-937a2caa4e8d"
 )
+
+lazy val copy_node_modules = taskKey[Unit]("Copys the node_module to the test target dir")
+
+copy_node_modules := {
+  val node_modules = new File("node_modules")
+  val target = new File("target/web/public/main/public/lib/")
+  IO.copyDirectory(node_modules,target,true, true)
+}
+
+addCommandAlias("get_npm_deps", ";web-assets:jseNpmNodeModules;copy_node_modules")
