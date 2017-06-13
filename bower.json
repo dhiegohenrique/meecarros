@@ -24,6 +24,7 @@
     "jquery": "^3.2.1",
     "angular-local-storage": "^0.6.0",
     "bootstrap-combobox": "^1.1.8",
-    "angular-input-masks": "^2.6.0"
+    "angular-input-masks": "^2.6.0",
+    "angular-confirm": "angular1-confirm#^1.1.0"
   }
 }

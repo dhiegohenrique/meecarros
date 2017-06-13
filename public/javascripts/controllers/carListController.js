@@ -1,8 +1,8 @@
 "use strict";
 
-angular.module("meecarros").controller("carListController", ["$scope", "$state", "$stateParams", "$rootScope", "carService", "personService", "$q", "colorService", "loadingService", carListController]);
+angular.module("meecarros").controller("carListController", ["$scope", "$state", "$stateParams", "$rootScope", "carService", "personService", "$q", "colorService", "loadingService", "$ngConfirm", carListController]);
 
-function carListController($scope, $state, $stateParams, $rootScope, carService, personService, $q, colorService, loadingService) {
+function carListController($scope, $state, $stateParams, $rootScope, carService, personService, $q, colorService, loadingService, $ngConfirm) {
     var persons;
     var colors;
     $scope.cars = [];
@@ -25,7 +25,7 @@ function carListController($scope, $state, $stateParams, $rootScope, carService,
         }
 
         if (isDeletingCar($event)) {
-            deleteCar(id);
+            showConfirmDeleteCar(id);
             return;
         }
 
@@ -50,7 +50,7 @@ function carListController($scope, $state, $stateParams, $rootScope, carService,
             .modal('show')
             .on('click', '#yes', function(e) {
                 if (isDeletingCar($event)) {
-                    deleteCar(id);
+                    showConfirmDeleteCar(id);
                     return;
                 }
 
@@ -60,9 +60,6 @@ function carListController($scope, $state, $stateParams, $rootScope, carService,
     };
 
     function getCarIndex(id) {
-        console.log("vai pesquisar id: " + id);
-        console.log("modelos atuais: " + $scope.cars);
-
         for (var index = 0; index < $scope.cars.length; index++) {
             if (id == $scope.cars[index].id) {
                 return index;
@@ -72,24 +69,38 @@ function carListController($scope, $state, $stateParams, $rootScope, carService,
         return -1;
     };
 
+    function showConfirmDeleteCar(id) {
+        var modalConfig = {
+            title: "Confirmar exclusão",
+            content: "Deseja excluir o carro selecionado?",
+            buttons: {
+                no: {
+                    text: "Não",
+                    btnClass: 'btn-default'
+                },
+                yes: {
+                    text: 'Sim',
+                    btnClass: 'btn-primary',
+                    action: function() {
+                        deleteCar(id);
+                    }
+                }
+            }
+        };
+
+        $ngConfirm(modalConfig);
+    };
+
     function deleteCar(id) {
-        console.log("clicou para deletar o carro: " + id);
-
-        // loadingService.openModal();
-        // carService.deleteCar(id)
-        //     .then(function(response) {
-        //         var index = getCarIndex(id);
-        //         $scope.cars.splice(index, 1);
-        //         $state.go("carlist");
-        //     })
-        //     .finally(function() {
-        //         loadingService.closeModal();
-        //     });
-
-        $("#modal-logoff")
-            .modal("show")
-            .on('click', '#yes', function(e) {
-                console.log("deletar o carro: " + id);
+        loadingService.openModal();
+        carService.deleteCar(id)
+            .then(function(response) {
+                var index = getCarIndex(id);
+                $scope.cars.splice(index, 1);
+                $state.go("carlist");
+            })
+            .finally(function() {
+                loadingService.closeModal();
             });
     };
 
