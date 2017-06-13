@@ -38,6 +38,7 @@ before_cache:
 script:
 - gulp
 - cd dist
+- sbt test
 deploy:
   provider: heroku
   api_key:
