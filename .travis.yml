@@ -18,9 +18,9 @@ install:
 notifications:
   email: false
 before_install:
-# - . $HOME/.nvm/nvm.sh
-# - nvm install node 7.4
-# - nvm use node 7.4
+- . $HOME/.nvm/nvm.sh
+- nvm install node 7.4
+- nvm use node 7.4
 # - rm -rf node_modules/ && npm install node-gyp && sbt web-assets:jseNpmNodeModules
 - npm install
 - npm install -g bower@1.8.0
