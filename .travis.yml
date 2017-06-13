@@ -1,5 +1,7 @@
 sudo: false
-language: scala
+language: node_js
+node_js:
+- 7.4.0
 scala:
 - 2.11.8
 # node_js:
