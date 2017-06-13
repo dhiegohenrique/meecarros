@@ -1,21 +1,8 @@
-#sudo: false
-language: node_js
-node_js:
-- 7.4.0
+sudo: false
+language: scala
 scala:
 - 2.11.8
-# node_js:
-# - 7.4.0
-addons:
-  apt:
-    packages:
-      - oracle-java8-set-default
 install:
-- echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
-- sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
-- sudo apt-get update
-- sudo apt-get install sbt
-
 # - sudo apt-get update
 # - sudo apt-get install nodejs
 # - sudo apt-get install npm
@@ -26,31 +13,33 @@ install:
   # - nvm use stable
   # - npm install
 # - . $HOME/.nvm/nvm.sh
-# - nvm install 7.4.0
+# - nvm install node 7.4.0
 # - nvm use node 7.4.0
 
 notifications:
   email: false
 before_install:
+# - . $HOME/.nvm/nvm.sh
+# - nvm install node 7.4
+# - nvm use node 7.4
+# - rm -rf node_modules/ && npm install node-gyp && sbt web-assets:jseNpmNodeModules
+
 - npm install -g bower@1.8.0
-# - npm install -g gulp@3.9.1
+- npm install -g gulp@3.9.1
 - bower install
 jdk:
 - oraclejdk8
-# cache:
-#   directories:
-#   - "$HOME/.ivy2/cache"
-# before_cache:
-# - rm -rf $HOME/.ivy2/cache/com.typesafe.play/*
-# - rm -rf $HOME/.ivy2/cache/scala_*/sbt_*/com.typesafe.play/*
-# - find $HOME/.ivy2/cache -name "ivydata-*.properties" -print0 | xargs -n10 -0 rm
-script:
-- sbt test
+cache:
+  directories:
+  - "$HOME/.ivy2/cache"
+before_cache:
+- rm -rf $HOME/.ivy2/cache/com.typesafe.play/*
+- rm -rf $HOME/.ivy2/cache/scala_*/sbt_*/com.typesafe.play/*
+- find $HOME/.ivy2/cache -name "ivydata-*.properties" -print0 | xargs -n10 -0 rm
 before_deploy:
 # - sudo npm cache clean -f
 # - sudo npm install -g n
 # - sudo n stable
-- npm install gulp -g
 - gulp
 - cd dist
 deploy:
