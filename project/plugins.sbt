@@ -23,4 +23,3 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "0.7.6")
 addSbtPlugin("com.typesafe.sbt" % "sbt-play-enhancer" % "1.1.0")
 
 addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "4.0.0")
-

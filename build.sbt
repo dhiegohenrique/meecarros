@@ -4,11 +4,23 @@ version := "1.0-SNAPSHOT"
 
 lazy val GatlingTest = config("gatling") extend Test
 
+//lazy val root = (project in file(".")).enablePlugins(PlayJava, GatlingPlugin).configs(GatlingTest)
+  //.settings(inConfig(GatlingTest)(Defaults.testSettings): _*)
+  //.settings(
+   // scalaSource in GatlingTest := baseDirectory.value / "/gatling/simulation"
+ // )
+
+ 
 lazy val root = (project in file(".")).enablePlugins(PlayJava, GatlingPlugin).configs(GatlingTest)
   .settings(inConfig(GatlingTest)(Defaults.testSettings): _*)
   .settings(
-    scalaSource in GatlingTest := baseDirectory.value / "/gatling/simulation"
+    scalaSource in GatlingTest := baseDirectory.value / "/gatling/simulation",
+	JsEngineKeys.npmNodeModules in Assets := Nil,
+    JsEngineKeys.npmNodeModules in TestAssets := Nil
   )
+ 
+ 
+ 
 
 scalaVersion := "2.11.11"
 
@@ -49,13 +61,3 @@ herokuAppName in Compile := "meecarros"
 herokuConfigVars in Compile := Map(
   "HEROKU_API_KEY" -> "5ef56961-7ec5-41ae-84e3-937a2caa4e8d"
 )
-
-lazy val copy_node_modules = taskKey[Unit]("Copys the node_module to the test target dir")
-
-copy_node_modules := {
-  val node_modules = new File("node_modules")
-  val target = new File("target/web/public/main/public/lib/")
-  IO.copyDirectory(node_modules,target,true, true)
-}
-
-addCommandAlias("get_npm_deps", ";web-assets:jseNpmNodeModules;copy_node_modules")
