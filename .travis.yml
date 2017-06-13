@@ -2,8 +2,9 @@ language: scala
 scala:
 - 2.11.8
 install:
-- sudo npm install -g npm@3.10.0
-- sudo npm install -g npm@next
+- sudo apt-get update
+- sudo apt-get install nodejs
+- sudo apt-get install npm
 
   # - . $HOME/.nvm/nvm.sh
   # - nvm install stable
