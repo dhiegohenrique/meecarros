@@ -8,10 +8,9 @@ var cleanCSS = require('gulp-clean-css');
 var gulpCopy = require('gulp-copy');
 var ngAnnotate = require('gulp-ng-annotate');
 var htmlreplace = require('gulp-html-replace');
-var path = require("path");
 
 gulp.task('clean', function () {
-	return gulp.src(path.join(__dirname, "./", 'dist'))
+	return gulp.src('dist')
 	    .pipe(clean());
 });
 
