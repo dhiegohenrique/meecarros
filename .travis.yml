@@ -32,8 +32,8 @@ install:
 notifications:
   email: false
 before_install:
-# - npm install -g bower@1.8.0
-- npm install -g gulp@3.9.1
+- npm install -g bower@1.8.0
+# - npm install -g gulp@3.9.1
 - bower install
 jdk:
 - oraclejdk8
