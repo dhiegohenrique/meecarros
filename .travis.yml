@@ -12,12 +12,19 @@ install:
   # - nvm install stable
   # - nvm use stable
   # - npm install
+# - . $HOME/.nvm/nvm.sh
+# - nvm install node 7.4.0
+# - nvm use node 7.4.0
 
 notifications:
   email: false
 before_install:
+- . $HOME/.nvm/nvm.sh
+- nvm install node 7.4
+- nvm use node 7.4
+
 - npm install -g bower@1.8.0
-# - npm install -g gulp@3.9.1
+- npm install -g gulp@3.9.1
 - bower install
 jdk:
 - oraclejdk8
@@ -32,11 +39,6 @@ before_deploy:
 # - sudo npm cache clean -f
 # - sudo npm install -g n
 # - sudo n stable
-- . $HOME/.nvm/nvm.sh
-- nvm install node 7.4.0
-- nvm use node 7.4.0
-- npm install -g gulp@3.9.1
-
 - gulp
 - cd dist
 deploy:
