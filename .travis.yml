@@ -32,7 +32,7 @@ install:
 notifications:
   email: false
 before_install:
-- npm install -g bower@1.8.0
+# - npm install -g bower@1.8.0
 - npm install -g gulp@3.9.1
 - bower install
 jdk:
@@ -50,6 +50,7 @@ before_deploy:
 # - sudo npm cache clean -f
 # - sudo npm install -g n
 # - sudo n stable
+- npm install gulp -g
 - gulp
 - cd dist
 deploy:
