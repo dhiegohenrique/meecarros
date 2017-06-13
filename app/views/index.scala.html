@@ -36,14 +36,14 @@
 
 		<div class="row">
 			<div id="equalheight">
-				<form name="cityForm" novalidate
-					ng-submit="submitForm(cityForm.$valid)">
+				<form name="tokenForm" novalidate
+					ng-submit="submitForm(tokenForm.$valid)">
 
 					<div
 						class="col-xs-12 col-sm-12 col-md-11 col-lg-11 no-padding-width">
 						<label>Token do Pipedrive:</label> <input type="text"
 							class="form-control" placeholder="Token do Pipedrive"
-							ng-model="city" required ng-disabled="isTokenValid" name="name"
+							ng-model="token" required ng-disabled="isTokenValid" name="token"
 							id="token">
 					</div>
 
@@ -53,8 +53,8 @@
 						<button type="submit " class="btn btn-group-justified" ng-class="{'btn-primary' : !isTokenValid, 'btn-danger' : isTokenValid}"
 							>
 							<i class="fa "
-								ng-class="{ 'fa-check': !isTokenValid, 'fa-trash' : isTokenValid} "></i>
-							{{!isTokenValid ? "Validar" : "Limpar"}}
+								ng-class="{ 'fa-sign-in': !isTokenValid, 'fa-sign-out' : isTokenValid} "></i>
+							{{!isTokenValid ? "Login" : "Logoff"}}
 						</button>
 					</div>
 				</form>
@@ -65,13 +65,9 @@
 	<br />
 	<br />
 
-	<div ng-include="'partials/validationMessage.html'"
-		ng-show="cityForm.name.$invalid && cityForm.$submitted"></div>
+	<div ng-include="'partials/validationMessage.html'" ng-show="tokenForm.token.$invalid && tokenForm.$submitted"></div>
 
 	<ui-view></ui-view>
-
-	<div ng-include="'partials/modalLogoff.html'"></div>
-	<div ng-include="'partials/modalConfirm.html'"></div>
 
 	<!-- build:js -->
 	<script src="vendor/jquery/dist/jquery.min.js"></script>
@@ -95,6 +91,7 @@
 	<script src="javascripts/services/personService.js"></script>
 	<script src="javascripts/services/colorService.js"></script>
 	<script src="javascripts/services/loadingService.js"></script>
+	<script src="javascripts/services/modalService.js"></script>
 	<script src="javascripts/config/interceptorsConfig.js"></script>
 	<script src="javascripts/config/templatesConfig.js"></script>
 	<script src="javascripts/interceptors/errorInterceptor.js"></script>

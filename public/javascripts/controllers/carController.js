@@ -28,7 +28,6 @@ function carController($scope, $state, $rootScope, $stateParams, carService, $q,
                     $scope.car.id = response;
                 }
 
-                console.log("salvou: " + JSON.stringify($scope.car));
                 $state.go("carlist", {"car" : $scope.car});
             })
             .finally(function() {

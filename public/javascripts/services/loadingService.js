@@ -1,8 +1,8 @@
 "use strict";
 
-angular.module("meecarros").service("loadingService", ["$uibModal", "$templateCache", "$uibModalStack", loadingService]);
+angular.module("meecarros").service("loadingService", ["$uibModal", "$templateCache", loadingService]);
 
-function loadingService($uibModal, $templateCache, $uibModalStack) {
+function loadingService($uibModal, $templateCache) {
     var service = {};
     var instance;
     var isOpen = false;

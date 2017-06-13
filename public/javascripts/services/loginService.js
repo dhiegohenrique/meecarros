@@ -3,11 +3,11 @@
 angular.module("meecarros").service("loginService", loginService);
 
 function loginService($http, $q) {
-    function validate(city) {
+    function validate(token) {
         var deferred = $q.defer();
 
         var token = {
-            "token" : city
+            "token" : token
         }
 
         $http.post("/login", token)

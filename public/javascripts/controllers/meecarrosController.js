@@ -1,9 +1,9 @@
 "use strict";
 
-angular.module("meecarros").controller("meecarrosController", ["$scope", "loginService", "$state", "$q", "localStorageService", "$window", "$rootScope", "loadingService", meecarrosController]);
+angular.module("meecarros").controller("meecarrosController", ["$scope", "loginService", "$state", "$q", "localStorageService", "$window", "$rootScope", "loadingService", "modalService", meecarrosController]);
 
-function meecarrosController($scope, loginService, $state, $q, localStorageService, $window, $rootScope, loadingService) {
-    $scope.city = "32fffa616b7fb3d2940e99fd06423e04db4591cb";
+function meecarrosController($scope, loginService, $state, $q, localStorageService, $window, $rootScope, loadingService, modalService) {
+    $scope.token = "32fffa616b7fb3d2940e99fd06423e04db4591cb";
     
     $scope.submitForm = function(isValid) {
         if (!isValid) {
@@ -21,7 +21,7 @@ function meecarrosController($scope, loginService, $state, $q, localStorageServi
 
         $scope.isTokenValid = false;
         loadingService.openModal();
-        loginService.validate($scope.city)
+        loginService.validate($scope.token)
             .then(function(response) {
                 $scope.isTokenValid = true;
                 localStorageService.set("token", response.token);
@@ -36,16 +36,30 @@ function meecarrosController($scope, loginService, $state, $q, localStorageServi
     };
 
     function logoff() {
-        localStorageService.remove("token");
-        $window.location = "/";
+        var options = {
+            title : "Confirmação",
+            content : "Deseja deslogar?"
+        };
+
+        function callBackYes() {
+            localStorageService.remove("token");
+            $window.location = "/";
+        };
+
+        modalService.openConfirmModal(options, callBackYes);
     };
 
     function showConfirmModal() {
-        $('#modal-confirm')
-            .modal('show')
-            .on('click', '#yes', function(e) {
-                $rootScope.isCarEdit = false;
-                logoff();
-            });
+        var options = {
+            title : "Confirmação",
+            content : "O formulário foi editado. Todas as informações não salvas serão perdidas. Deseja prosseguir?"
+        };
+
+        function callBackYes() {
+            $rootScope.isCarEdit = false;
+            logoff();
+        };
+
+        modalService.openConfirmModal(options, callBackYes);
     };
 };

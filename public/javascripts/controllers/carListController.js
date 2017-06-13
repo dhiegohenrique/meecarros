@@ -1,8 +1,8 @@
 "use strict";
 
-angular.module("meecarros").controller("carListController", ["$scope", "$state", "$stateParams", "$rootScope", "carService", "personService", "$q", "colorService", "loadingService", "$ngConfirm", carListController]);
+angular.module("meecarros").controller("carListController", ["$scope", "$state", "$stateParams", "$rootScope", "carService", "personService", "$q", "colorService", "loadingService", "modalService", carListController]);
 
-function carListController($scope, $state, $stateParams, $rootScope, carService, personService, $q, colorService, loadingService, $ngConfirm) {
+function carListController($scope, $state, $stateParams, $rootScope, carService, personService, $q, colorService, loadingService, modalService) {
     var persons;
     var colors;
     $scope.cars = [];
@@ -20,7 +20,7 @@ function carListController($scope, $state, $stateParams, $rootScope, carService,
 
     $scope.showCar = function(id, $event) {
         if ($rootScope.isCarEdit) {
-            showConfirmModal(id, $event);
+            showConfirmCancelEdit(id, $event);
             return;
         }
 
@@ -45,18 +45,23 @@ function carListController($scope, $state, $stateParams, $rootScope, carService,
         return idElement == "delete";
     }
 
-    function showConfirmModal(id, $event) {
-        $('#modal-confirm')
-            .modal('show')
-            .on('click', '#yes', function(e) {
-                if (isDeletingCar($event)) {
-                    showConfirmDeleteCar(id);
-                    return;
-                }
+    function showConfirmCancelEdit(id, $event) {
+        var options = {
+            title : "Confirmação",
+            content : "O formulário foi editado. Todas as informações não salvas serão perdidas. Deseja prosseguir?"
+        };
 
-                $rootScope.isCarEdit = false;
-                $state.go("car", {"id" : id, "persons" : persons, "colors" : colors});
-            });
+        function callBackYes() {
+            if (isDeletingCar($event)) {
+                showConfirmDeleteCar(id);
+                return;
+            }
+
+            $rootScope.isCarEdit = false;
+            $state.go("car", {"id" : id, "persons" : persons, "colors" : colors});
+        };
+
+        modalService.openConfirmModal(options, callBackYes);
     };
 
     function getCarIndex(id) {
@@ -70,31 +75,23 @@ function carListController($scope, $state, $stateParams, $rootScope, carService,
     };
 
     function showConfirmDeleteCar(id) {
-        var modalConfig = {
-            title: "Confirmar exclusão",
-            content: "Deseja excluir o carro selecionado?",
-            buttons: {
-                no: {
-                    text: "Não",
-                    btnClass: 'btn-default'
-                },
-                yes: {
-                    text: 'Sim',
-                    btnClass: 'btn-primary',
-                    action: function() {
-                        deleteCar(id);
-                    }
-                }
-            }
+        var options = {
+            title : "Confirmar exclusão",
+            content: "Deseja excluir o carro selecionado?"
         };
 
-        $ngConfirm(modalConfig);
+        function callBackYes() {
+            deleteCar(id);
+        };
+
+        modalService.openConfirmModal(options, callBackYes);
     };
 
     function deleteCar(id) {
         loadingService.openModal();
         carService.deleteCar(id)
             .then(function(response) {
+                $scope.isCarEdit = false;
                 var index = getCarIndex(id);
                 $scope.cars.splice(index, 1);
                 $state.go("carlist");
